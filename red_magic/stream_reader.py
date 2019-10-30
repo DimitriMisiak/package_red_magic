@@ -341,6 +341,10 @@ class Root_reader(object):
         self._temporal_data_extraction()
         self._time_stamp_extraction()
 
+        # definng quality cuts
+        self.all.trig.cut = Copse()
+        self.all.noise.cut = Copse()
+
 
     def maintenance_cut(self, time_array):
         """ checking if the considered time is within a maintenance """

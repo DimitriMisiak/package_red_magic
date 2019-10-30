@@ -76,10 +76,10 @@ class Model_pulse():
     def _model_1exp(self, param, time_array):
         t, s, t0 = param
         if s<0:
-            print('s<0')
+            #print('s<0')
             s = 1e-20
         if s>t:
-            print('s>t')
+            #print('s>t')
             s=t
         param = [t, s, t0]
         return pulse_1exp(param, time_array)
@@ -87,10 +87,10 @@ class Model_pulse():
     def _model_2exp(self, param, time_array):
         eps, t1, t2, s, t0 = param
         if eps>1:
-            print('eps>1')
+            #print('eps>1')
             eps=1
         if eps<0:
-            print('eps<0')
+            #print('eps<0')
             eps=0        
         p1 = [t1, s, t0]
         p2 = [t2, s, t0]

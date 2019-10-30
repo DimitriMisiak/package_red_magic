@@ -53,3 +53,6 @@ manual_fitting.bonus_button('Bonus', lambda event: print('Yay'))
 
 
 plt.show()
+
+
+

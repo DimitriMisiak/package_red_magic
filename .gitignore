@@ -1,0 +1,10 @@
+# ignoring the compiled python file
+*.pyc
+
+.spyproject/
+
+__pycache__/
+
+build/
+dist/
+*.egg-info/

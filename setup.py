@@ -13,14 +13,21 @@ with open("README.md", "r") as fh:
     
 setuptools.setup(
         name="red_magic",
-        version="0.0.1",
+        version="0.0.9",
         author="Dimitri Misiak",
         author_email="dimitrimisiak@gmail.com",
         description="Generic analysis and processing tools for Manoir.",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        url="https://git.ipnl.in2p3.fr/dimitri.misiak/sampleproject",
+        url="https://git.ipnl.in2p3.fr/manoir/red_magic",
         packages=setuptools.find_packages(),
+        install_requires=[
+        	'numpy',
+        	'scipy',
+        	'matplotlib',
+        	'tqdm',
+        	'uproot',
+        ],
         classifiers=[
                 "Programming Language :: Python :: 3",
                 "License :: OSI Approved :: MIT License",

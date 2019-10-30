@@ -7,42 +7,43 @@
 
 from scipy import stats
 import math as m
-import json
 
-def mcmc_config(filepath, param_opt):
-    
-    ndim = len(param_opt)
-    
-    config = dict()
-    
-    config['Data'] = {
-            'directory': '/home/misiak/Data/data_run59',
-            'run': 'ti04l001',
-            'detector': 'RED71',         
-    }
-    
-    config['Parameters'] = {
-            'label': ['p{}'.format(i) for i in range(ndim)],
-            'pinit': list(param_opt),
-    }
-    
-    # by default, normal distribution centered in pinit
-    # and with a relative sigma of 0.1
-    config['Prior'] = {
-            'distribution': ['norm',]*ndim,
-            'arg1' : list(param_opt),
-            'arg2' : [0.1*p for p in param_opt],
-    }
-    
-    config['Model'] = {
-            'type': 'unknown',
-            'subtype': None,
-            'configpath': None,
-    }
-    
-    with open(filepath, 'w') as configfile:
-        json.dump(config, configfile, indent=4)
-        
+#import json
+#
+#def mcmc_config(filepath, param_opt):
+#    
+#    ndim = len(param_opt)
+#    
+#    config = dict()
+#    
+#    config['Data'] = {
+#            'directory': '/home/misiak/Data/data_run59',
+#            'run': 'ti04l001',
+#            'detector': 'RED71',         
+#    }
+#    
+#    config['Parameters'] = {
+#            'label': ['p{}'.format(i) for i in range(ndim)],
+#            'pinit': list(param_opt),
+#    }
+#    
+#    # by default, normal distribution centered in pinit
+#    # and with a relative sigma of 0.1
+#    config['Prior'] = {
+#            'distribution': ['norm',]*ndim,
+#            'arg1' : list(param_opt),
+#            'arg2' : [abs(0.1*p) for p in param_opt],
+#    }
+#    
+#    config['Model'] = {
+#            'type': 'unknown',
+#            'subtype': None,
+#            'configpath': None,
+#    }
+#    
+#    with open(filepath, 'w') as configfile:
+#        json.dump(config, configfile, indent=4)
+#        
         
 
 def logpdf(x, arg1, arg2, dist='norm'):

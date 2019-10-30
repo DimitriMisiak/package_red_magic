@@ -12,6 +12,9 @@ from tqdm import tqdm
 
 class Manual_fitting():
     
+    # induce a bug with the text_boxes list not restarting at each call of 
+    # a new instance of Manual_fitting
+    # to be fix later i guess :/
     text_boxes = list()
     lines = list()
     func = lambda x: list()
@@ -24,7 +27,7 @@ class Manual_fitting():
 
     def __init__(self, lines, func, paraminit,
                  callback=None, chi2_fun=None,):
-        
+    
         self.lines = lines
         self.func = func
         self.fig = lines[0].get_figure()
@@ -50,7 +53,7 @@ class Manual_fitting():
         for i,p in enumerate(self.paraminit):
             bot_level = topl-0.1-0.05*i
             axbox = self.fig.add_axes([rightl+0.1, bot_level, 0.15, 0.045])
-            text_box = TextBox(axbox, 'param{}'.format(i), initial=str(p))    
+            text_box = TextBox(axbox, 'param{}'.format(i), initial='{:.3e}'.format(p))    
             (self.text_boxes).append(text_box)
 
         previax = plt.axes([rightl+0.1, bot_level-0.05, 0.1, 0.045])
@@ -120,7 +123,7 @@ class Manual_fitting():
         
     def _reset(self, event):
         for p0, text_box in zip(self.paraminit, self.text_boxes):
-            text_box.set_val(str(p0))
+            text_box.set_val('{:.3e}'.format(p0))
     
     def _previous(self, event):
         # uses an auxiliary list to swap list contents

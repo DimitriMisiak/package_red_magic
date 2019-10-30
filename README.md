@@ -8,7 +8,7 @@ It is quite generic so it can fulfill analysis, processing, and fun purposes !
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install red_magic.
 
 ```bash
-pip install red_magic
+pip install red-magic
 ```
 
 ## Usage
