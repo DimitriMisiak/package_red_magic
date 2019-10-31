@@ -100,9 +100,15 @@ class Model_pulse():
 
     def _model_3exp(self, param, time_array):
         eps, ups, t1, t2, t3, s, t0 = param
-        if eps+ups>1:
+        if eps<0:
             eps=0
+        if ups<0:
             ups=0
+        if eps+ups>1:
+            sum_aux = eps + ups
+            eps = eps/sum_aux
+            ups = ups/sum_aux
+
         p1 = [t1, s, t0]
         p2 = [t2, s, t0]
         p3 = [t3, s, t0]

@@ -13,7 +13,7 @@ with open("README.md", "r") as fh:
     
 setuptools.setup(
         name="red_magic",
-        version="0.0.9",
+        version="0.0.10",
         author="Dimitri Misiak",
         author_email="dimitrimisiak@gmail.com",
         description="Generic analysis and processing tools for Manoir.",
