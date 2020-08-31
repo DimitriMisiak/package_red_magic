@@ -10,26 +10,39 @@ import matplotlib.pyplot as plt
 
 from .psd import inv_psd
 
-def exp_heaviside(x):
-    """
-    to avoid exp overflow, some tweak is needed
-    """
-    x_aux = np.where(x>0, -np.inf, x)
-    return np.exp(x_aux)
-
+#def exp_heaviside(x):
+#    """
+#    to avoid exp overflow, some tweak is needed
+#    """
+#    x_aux = np.where(x>0, -np.inf, x)
+#    return np.exp(x_aux)
+#
+#
+#def pulse_1exp(param, time_array):
+#    """
+#    pulse = Heaviside(t-d) * a * ( exp(-(t-d)/b) - exp(-(t-d)/c) )
+#    """
+#    
+#    b, c, d = param
+#    
+#    x = -(time_array-d)/b
+#    y = -(time_array-d)/c
+#    pulse_array = exp_heaviside(x) - exp_heaviside(y)
+#    print('hell')
+#    return pulse_array
+#    
 
 def pulse_1exp(param, time_array):
     """
-    pulse = Heaviside(t-d) * a * ( exp(-(t-d)/b) - exp(-(t-d)/c) )
+    pulse = exp(-(t)/b) - exp(-(t)/c)
     """
     
-    b, c, d = param
+    b, c = param
     
-    x = -(time_array-d)/b
-    y = -(time_array-d)/c
-    pulse_array = exp_heaviside(x) - exp_heaviside(y)
+    x = -time_array/b
+    y = -time_array/c
+    pulse_array = np.exp(x) - np.exp(y)
     return pulse_array
-    
 
 class Model_white_noise():
     
@@ -81,7 +94,11 @@ class Model_pulse():
         if s>t:
             #print('s>t')
             s=t
-        param = [t, s, t0]
+            
+        time_array = time_array - t0
+        time_array[time_array<0]=0
+        
+        param = [t, s]
         return pulse_1exp(param, time_array)
     
     def _model_2exp(self, param, time_array):
@@ -91,9 +108,13 @@ class Model_pulse():
             eps=1
         if eps<0:
             #print('eps<0')
-            eps=0        
-        p1 = [t1, s, t0]
-        p2 = [t2, s, t0]
+            eps=0    
+            
+        time_array = time_array - t0
+        time_array[time_array<0]=0
+        
+        p1 = [t1, s]
+        p2 = [t2, s]
         pulse1 = (1-eps) * pulse_1exp(p1, time_array)
         pulse2 = eps * pulse_1exp(p2, time_array)
         return pulse1 + pulse2
@@ -109,9 +130,12 @@ class Model_pulse():
             eps = eps/sum_aux
             ups = ups/sum_aux
 
-        p1 = [t1, s, t0]
-        p2 = [t2, s, t0]
-        p3 = [t3, s, t0]
+        time_array = time_array - t0
+        time_array[time_array<0]=0
+
+        p1 = [t1, s]
+        p2 = [t2, s]
+        p3 = [t3, s]
         pulse1 = (1-eps-ups) * pulse_1exp(p1, time_array)
         pulse2 = eps * pulse_1exp(p2, time_array)
         pulse3 = ups * pulse_1exp(p3, time_array)
